@@ -37,13 +37,19 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
       
       
       if(!image_url)
-        return res.status(400).send({message: "image url is null"});
+        return res.status(422).send({message: "image url is null"});
+        
+      try {
+        let filteredpath:string = await filterImageFromURL(image_url); 
+
+        res.status(200).sendFile(filteredpath);
+
+      } catch (error: any) {
+        console.log(error);
+        res.status(500).send(error.message)
+      }
       
       try {
-
-        let filteredpath:string = await filterImageFromURL(image_url); 
-        
-        res.status(200).sendFile(filteredpath);
 
         fs.readdir(__dirname + "/util/tmp/",(err, files) =>{          
           deleteLocalFiles(files.map(x => __dirname + "/util/tmp/" + x))
