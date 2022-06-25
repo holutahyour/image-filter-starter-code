@@ -38,8 +38,10 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
       
       if(!image_url)
         return res.status(400).send({message: "image url is null"});
+      
       try {
-        var filteredpath = await filterImageFromURL(image_url); 
+
+        let filteredpath:string = await filterImageFromURL(image_url); 
         
         res.status(200).sendFile(filteredpath);
 
@@ -48,9 +50,9 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
         })
 
 
-      } catch (error) {
+      } catch (error: any) {
         console.log(error);
-        
+        res.status(500).send(error.message)
       }
       
     })
