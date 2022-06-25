@@ -14,6 +14,11 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
 
+  let getErrorMessage = (error: unknown) =>{
+    if (error instanceof Error) return error.message;
+    return String(error)
+  }
+
   // @TODO1 IMPLEMENT A RESTFUL ENDPOINT
   // GET /filteredimage?image_url={{URL}}
   // endpoint to filter an image from a public url.
@@ -44,9 +49,8 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
         res.status(200).sendFile(filteredpath);
 
-      } catch (error: any) {
-        console.log(error);
-        res.status(500).send(error.message)
+      } catch (error: unknown) {
+        res.status(500).send(getErrorMessage(error))
       }
       
       try {
@@ -56,9 +60,8 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
         })
 
 
-      } catch (error: any) {
-        console.log(error);
-        res.status(500).send(error.message)
+      } catch (error: unknown) {
+        res.status(500).send(getErrorMessage(error))
       }
       
     })
