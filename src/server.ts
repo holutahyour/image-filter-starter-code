@@ -43,8 +43,8 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
         
         res.status(200).sendFile(filteredpath);
 
-        fs.readdir("./src/util/tmp/",(err, files) =>{          
-          deleteLocalFiles(files.map(x => "./src/util/tmp/" + x))
+        fs.readdir(__dirname + "/util/tmp/",(err, files) =>{          
+          deleteLocalFiles(files.map(x => __dirname + "/util/tmp/" + x))
         })
 
 
@@ -61,6 +61,8 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // Root Endpoint
   // Displays a simple message to the user
   app.get( "/", async ( req, res ) => {
+    console.log(__dirname);
+
     res.send("try GET /filteredimage?image_url={{}}")
   } );
   
