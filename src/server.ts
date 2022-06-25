@@ -49,7 +49,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
         res.status(200).sendFile(filteredpath);
 
-      } catch (error: unknown) {
+      } catch (error) {
         res.status(500).send(getErrorMessage(error))
       }
       
@@ -60,7 +60,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
         })
 
 
-      } catch (error: unknown) {
+      } catch (error) {
         res.status(500).send(getErrorMessage(error))
       }
       
